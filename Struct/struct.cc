@@ -104,7 +104,7 @@ int printBook(struct Books *book){
 	cout << "Book title: " << book -> title << endl;
 	cout << "Book author: " << book -> author << endl;
 	cout << "Book subject: " << book -> subject << endl;
-        cout << "Book ID: " << book --> book_id << endl;	
+    cout << "Book ID: " << book -> book_id << endl;	
 
 
 }
