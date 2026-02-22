@@ -1,5 +1,7 @@
 #include <iostream>
 
+using namespace std;
+
 /*
 ------ Classes and Objects ------
 
@@ -54,7 +56,7 @@ class Box {
         double length;
         double breadth;
         double height;
-}
+};
 
 int main() {
     Box Box1;
