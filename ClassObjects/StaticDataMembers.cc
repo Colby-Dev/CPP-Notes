@@ -29,7 +29,7 @@ can mislead it.
 
 class Book {
     private:
-        string table;
+        string title;
         string author;
     
     public: 
@@ -41,7 +41,7 @@ class Book {
         totalBooks++;
     }
 
-    static void displayBookInfo(){
+    void displayBookInfo(){
         std::cout << "The total books are: " << title << ", Author: " << author << endl;
     }
 
