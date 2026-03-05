@@ -39,42 +39,42 @@ the data of a class, but still, they have significant differences in their scope
 
 --- Friend Function --- 
 
-A friend Function is a non-member function that is declared inside a class using the, "friend",
-keyword it has special access to the class's private and protected members. Since it's not a
-member it is not bound to a specific object, can't overloaded based on objects, not use this pointer,
-and cannot be inherited by derived classes. They are defined outside the class but declared inside it.
+A friend Function is a non member function that is declared inside a class using "friend" keyword, it has special
+access to the class's private and protected members. Since it's not a member it is not special access to the class's
+private and protected members. Since it's not a member it is not bound to a specific object, can't overloaded based on objects,
+not use this pointer, and cannot be inherited by derived classes. They are defined outside the class but declared inside it. 
 
---- Member Functions ---
+--- Member Function --- 
 
-Whereas the member function is defined within the class and operates using this pointer. It can
-access all members of the class (private, protected, and public), and as it is tied to class objects,
-it can be overloaded and inherited by derived classes.
+Whereas the member function is defined within the class and operates using this pointer. It can access all members of the class
+(private, protected, and public), and as it is tied to class objects, it can be overloaded and inherited by derived classes. 
 
 ----- Friend Classes -----
 
-In C++, a friend class is a class that gives access to private and protected members of another class.
-When a class declares another class as a friend, the second class (the friend) can directly access
-the private and protected members of the first class.
+In C++, a friend class is a class that gives access to private and protected members of another class. When a class declares another class as a friend,
+the second class (the friend) can directly access the private and protected members of the first class. 
 
-This concept is similar to friend functions, but here the friend is an entire class rather than a
-specific function. 
+This concept is similar to friend functions, but here the friend is an entire class rather than a specific function. 
+
+
 */
 
 class ClassB;
 
-class ClassA {
+class ClassA{
     private:
         int dataA;
     
     public:
+        ClassA() : dataA(42) {}
         friend class ClassB;
 };
 
-class ClassB {
+class ClassB{
     public:
         void showDataFromA(const ClassA& objA){
-            cout << "Data from ClassA: " << objA.dataA << endl;
-    }
+            cout << "Data from ClassA: " << obj.dataA << endl;
+        }
 };
 
 int main(){
@@ -82,5 +82,6 @@ int main(){
     ClassB objB;
 
     objB.showDataFromA(objA);
+
     return 0;
 }
