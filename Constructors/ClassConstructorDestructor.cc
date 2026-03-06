@@ -37,7 +37,7 @@ not even void. Constructors can be very useful for setting initial values for ce
 
 --- Parameterized Constructor ---
 
-A defualt constuctor does not have any parameter, but if you need, a consturctor can have parameters.
+A default constuctor does not have any parameter, but if you need, a consturctor can have parameters.
 This helps you to assign initial value to an object at the time of its creation.
 
     Line::Line(double len){
@@ -47,9 +47,47 @@ This helps you to assign initial value to an object at the time of its creation.
 
 --- The Class Destuctor --- 
 
+A destructor is a special member function of a class that is executed whenever an object of it's class goes out of scope or whenever the delete expression is applied
+to a pointer to the object of that class.
+
+A destructor will have exact same name as the class prefixed with a tilde (~) and it can neither return a value nor can it take any parameters. Destructor can be very
+useful for releasing resources before coming out of the program like closing files, releasing memories etc. 
 
 */
 
-int main(){
+class Line { 
+    public: 
+        void setLength(double len);
+        double getLength(void);
+        Line(); // Constructor
+        ~Line(); // Destructor
 
+    private: 
+        double length;
+};
+
+// Member functions definitions including constructor
+Line::Line(void) {
+    cout << "Object is being created" << endl;
+}
+
+Line::~Line(void){
+    cout << "Object is being deleted" << endl;
+}
+
+void Line::setLength(double len){
+    length = len;
+}
+
+double Line::getLength(void){
+    return length;
+}
+
+int main(){
+    Line line;
+
+    line.setLength(6.0);
+    cout << "Length of line: " << line.getLength() << endl;
+
+    return 0;
 }
