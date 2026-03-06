@@ -13,6 +13,14 @@ retrieved, or determined during runtime, which is more flexible than static init
 
     ClassName* objectName = new ClassName(constuctor_arguments);
 
+--- Why Use Constuctors for Dynamic Initialization? ---
+
+> Allows initialization with values known only at runtime.
+
+> Simplifies object creation and initialization logic.
+
+> Combines initialization and validation in a single step. 
+
 */
 
 
