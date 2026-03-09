@@ -15,7 +15,7 @@ is called, and the resources of derived class is not cleaned up.
         }
     };
 
------ Why We Need Virtual Destructors? -----
+--- Why We Need Virtual Destructors? ---
 
 Given below are the reasons why virtual destructors are needed: 
 
@@ -26,6 +26,11 @@ Given below are the reasons why virtual destructors are needed:
 > It avoids memory leaks
 
 > Virtual destructors maintain the order of execution of destructors i.e., first derived class, then base class.
+
+--- When to Use Virtual Destructors? ---
+
+
+
 
 */
 
