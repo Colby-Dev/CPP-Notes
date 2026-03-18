@@ -36,5 +36,14 @@ This is one way encapsulation is achieved.
 To make parts of a class public, you must declare them after the public keyword. All variables or functions defined after the public specifier are accessible by all over functions
 in your program. 
 
+Making one class a friend of another exposes the implementation details and reduces encapsulation. The ideal is to keep as many of te details of each class hidden from all other classes
+as possible. 
+
+--- Designing Strategy --- 
+
+Most of us have learnt to make class members private by default unless we need to expose them. Thats just good encapsulation. This is applied most frequently to data members, but it applies
+equally to all members, including virtual functions. 
 
 */
+
+
