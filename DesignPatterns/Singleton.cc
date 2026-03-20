@@ -1,4 +1,5 @@
-#include <iostream> 
+#include <iostream>
+#include <string>
 using namespace std; 
 
 /* 
@@ -41,6 +42,33 @@ However, the eager initialization singleton is simpler and it is also thread-saf
 
 --- Lazy Initialization Singleton --- 
 
+In this approach, the instance of the class is created only when it is needed for the first time. This 
+can help us in creating only one instance of the class and it also saves memory.
+
+Following are the steps to implement Singleton Pattern in C++
+
+> Make the constructor of the class private so that it cannot be instantiated from outside the class. 
+
+> Then, create a static variable that holds the single instance of the class. 
+
+> Create a static method that returns the instance of the class. This method checks if the instance is
+  already created, if not it creates one and returns it. Otherwise, it simply returns the existing
+  instance. 
+
+Example: 
+
+	class Logger {
+		private:
+			static Logger* instance;
+			Logger() {}
+
+		public:
+			static Logger* getInstance() {
+			
+			    if (instance == nullptr) {
+			    	
+			    	instance = new Logger();
+				}
 
 
 */
