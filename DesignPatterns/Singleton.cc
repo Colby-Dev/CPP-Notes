@@ -34,6 +34,13 @@ implementations are:
 
     * Lazy Initialization Singleton
     * Eager Initialization Singleton 
-    * 
+    * Mayers' Singleton
+
+Mostly, the lazy initialization singleton is used as it is more efficient and it also saves memory.
+However, the eager initialization singleton is simpler and it is also thread-safe. The Mayers' singletonimplementation is a very good modern approach for creating singleton classes in C++/ 
+
+--- Lazy Initialization Singleton --- 
+
+
 
 */
