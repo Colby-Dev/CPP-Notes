@@ -55,45 +55,95 @@ Following are the steps to implement Singleton Pattern in C++
   already created, if not it creates one and returns it. Otherwise, it simply returns the existing
   instance. 
 
-Example: 
-
-	class Logger {
-		private:
-			static Logger* instance;
-			Logger() {}
-
-		public:
-			static Logger* getInstance() {
-			
-			    if (instance == nullptr) {
-			    	
-			    	instance = new Logger();
-				}
-				return instance;
-			}
-
-			void log(string message){
-				cout << "Log: " << message << endl;
-			}
-};
-
-Logger* Logger::instance = nullptr;
-
-int main() {
-	Logger* logger = Logger::getInstance();
-	logger->log("This is a log");
-	Logger* logger = Logger::getInstance();
-	l1->log("This is another log message");
-	return 0;
-}
 
 
 --- Eager Initialization Singleton ---
 
-In this approach, we create the instance of the class at the time of class loading. 
+In this approach, we create the instance of the class at the time of class loading. THis approach is simpler and it is also thread-safe.
+However, the drawback of this approach is that the instance is created even if it is not used, which can lead to resource wastage. 
+So if you are sure that the instance will be used, then this approach is a good choice. 
 
 
+ --- Mayers' Singleton Implementation --- 
+
+ The Mayers' SIngleton implementation is a very good modern approach for creating singleton classes in C++. This approach uses a static local variable inside the
+ getInstance() method to hold the single instance of the class. The instance is created when the method is called for the first time and it is destroyed automatically
+ when the program exits. This approach is thread-safe and it also ensures that only one instance of the class is created. 
 
 
 
 */
+// ---------------------------------------- //
+// Lazy Initialization Singleton: 
+
+// 	class Logger {
+// 		private:
+// 			static Logger* instance;
+// 			Logger() {}
+
+// 		public:
+// 			static Logger* getInstance() {
+			
+// 			    if (instance == nullptr) {
+			    	
+// 			    	instance = new Logger();
+// 				}
+// 				return instance;
+// 			}
+
+// 			void log(string message){
+// 				cout << "Log: " << message << endl;
+// 			}
+// };
+
+// Logger* Logger::instance = nullptr;
+
+// int main() {
+
+// 	Logger* logger = Logger::getInstance();
+// 	logger->log("This is a log");
+
+// 	Logger* logger = Logger::getInstance();
+// 	l1->log("This is another log message");
+
+// 	return 0;
+// }
+
+
+
+
+// ---------------------------------------- //
+// Eager Initalization Example: 
+
+	// class Logger { 
+	// 	private: 
+	// 		static Logger* instance;
+	// 		Logger() {}
+
+	// 	public: 
+	// 		static Logger* getInstance(){
+	// 			return instance;
+	// 		}
+
+	// 		void log(string message){
+	// 			cout <<"Log: " << message << endl;
+	// 		}
+	// };
+
+	// Logger* Logger::instance = new Logger();
+
+	// int main(){
+	// 	Logger* logger = Logger::getInstance();
+	// 	logger->log("This is a log message.");
+
+	// 	Logger* l1 = Logger::getInstance();
+	// 	l1->log("This is another log message.");
+		
+	// 	return 0;
+	// }
+
+
+// ---------------------------------------- //
+// Mayers' Singleton Implementation 
+
+	c
