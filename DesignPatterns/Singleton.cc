@@ -66,10 +66,13 @@ So if you are sure that the instance will be used, then this approach is a good 
 
  --- Mayers' Singleton Implementation --- 
 
- The Mayers' SIngleton implementation is a very good modern approach for creating singleton classes in C++. This approach uses a static local variable inside the
+ The Mayers' Singleton implementation is a very good modern approach for creating singleton classes in C++. This approach uses a static local variable inside the
  getInstance() method to hold the single instance of the class. The instance is created when the method is called for the first time and it is destroyed automatically
  when the program exits. This approach is thread-safe and it also ensures that only one instance of the class is created. 
 
+ --- Use cases of Singleton Pattern --- 
+
+ > Logger class - As we have seen in the examples, the logger class uses the singleton pattern, so 
 
 
 */
@@ -144,6 +147,29 @@ So if you are sure that the instance will be used, then this approach is a good 
 
 
 // ---------------------------------------- //
-// Mayers' Singleton Implementation 
+// Mayers' Singleton Example:
 
-	c
+	class Logger { 
+		private:
+			Logger() {}
+		
+		public: 
+			static Logger& getInstance(){
+				static Logger instance;
+				return instance;
+			}
+
+			void log(string message){
+				cout << "Log: " << message << endl;
+			}
+	};
+
+	int main() { 
+		Logger& logger = Logger::getInstance();
+		logger.log("This is a log message.");
+		
+		Logger& l1 = Logger::getInstance();
+		l1.log("This is another log message.");
+
+		return 0;
+	}
