@@ -69,6 +69,31 @@ Example:
 			    	
 			    	instance = new Logger();
 				}
+				return instance;
+			}
+
+			void log(string message){
+				cout << "Log: " << message << endl;
+			}
+};
+
+Logger* Logger::instance = nullptr;
+
+int main() {
+	Logger* logger = Logger::getInstance();
+	logger->log("This is a log");
+	Logger* logger = Logger::getInstance();
+	l1->log("This is another log message");
+	return 0;
+}
+
+
+--- Eager Initialization Singleton ---
+
+In this approach, we create the instance of the class at the time of class loading. 
+
+
+
 
 
 */
