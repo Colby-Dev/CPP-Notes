@@ -72,7 +72,21 @@ So if you are sure that the instance will be used, then this approach is a good 
 
  --- Use cases of Singleton Pattern --- 
 
- > Logger class - As we have seen in the examples, the logger class uses the singleton pattern, so 
+ > Logger class - As we have seen in the examples, the logger class uses the singleton pattern, so it can be accessed anywhere but creates only one instance throughout
+   the application.
+
+ > Configuration class - A configuration class can be implemented as a singleton to ensure that there is only one instance of the configuration settings throughout the
+   application.
+
+ > Database connection class - Another usecase is to implement a database connection class, so that you don't need to create multiple connections to the database. 
+
+ > Printer Spooler - A printer spooler can be implemented as a singleton to manager print jobs in a centralized manner. So, your whole system has only one instance of the
+				     printer spooler instead of making multiple instances for every application on the system. 
+
+--- Conclusion ---
+
+We covered in detail the Singleton Pattern in C++. We explained how to implement it and also provided an example of a Logger class that uses the singleton pattern. The singleton
+patter is a useful design pattern which helps in managing shared resources and it also ensures that only one instance of a class is created. 
 
 
 */
