@@ -102,7 +102,78 @@ Example:
 
 --- Simple Factory Pattern Implementation ---
 
-This is a simple way to 
+This is a simple way to implement the factory pattern also known as Static Factory Method. In this approach, we create a single class that contians a static method to create objects
+of different types based on the input parameters. Then, in the factory method, we use a switch statement of if-else statements to determine which type of object to create based on 
+the input parameters. 
+
+Let's take an example of shape factory. Here, we have a class Shape and different subclasses such as Circle and Square. We can create a static factory method in the ShapeFactory class
+to create objects of these subclasses based on the input parameters.
+
+Example: 
+    
+    class Shape{
+        public: 
+
+            virtual void draw() = 0;
+            virtual ~Shape(){}
+    };
+
+    class Circle : public Shape{
+        public: 
+
+            void draw() {
+                std::cout << "Drawing a Circle" << std::endl;
+            }
+    };
+
+    class Square : public Shape {
+        public: 
+
+            void draw(){
+                std::cout << "Drawing a Square" << std::endl;
+            }
+    };
+
+    class ShapeFactory {
+        public: 
+
+            static Shape* createShape(const std::string& type){
+                if (type == "Circle"){
+                    return new Circle();
+                } else if (type == "Square"){
+                    return new Square(); 
+                } else {
+                    return nullptr; 
+                };
+            }
+    };
+
+    class Client { 
+        public: 
+
+            void drawShape(cosnt std::string& type){
+                Shape* shape = ShapeFactory::createShape(type);
+                if (shape){
+                    shape -> draw();
+                    delete shape;
+                } else { 
+                    std::cout << "Invalid shape type" << std::endl;
+                }
+            }
+    };
+
+int main(){
+    Client client;
+    client.drawShape("Circle");
+    client.drawShape("Square");
+    client.drawShape("Triangle"); 
+}
+
+
+--- Registry based Factory Pattern Implementation ---
+
+This is more advanced way to implement the factory pattern. In this approach, we create a registry of factory methods 
+
 
 */
 
