@@ -25,6 +25,11 @@ The following illustration shows the steps for implementing the Basic Prototype 
 
     Define Prototype Interface -> Create Concrete Prototype Class -> Client Requests Object -> Cloned Object Returned
 
+--- Conclusion --- 
+
+We learned what is the Prototype Pattern and how to implement it in C++. We also saw two different ways of implementing the pattern, with basic and registry. The pattern is a
+powerful design that allows us to create copies of existing objects without knowing their class. It helps in reducing memory usage and decoupling the client code from the class
+of the object. 
 
 */
 
