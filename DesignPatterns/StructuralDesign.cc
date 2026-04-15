@@ -39,6 +39,104 @@ Structural design patterns are useful in the following scenarios:
 > Times when you think you need to improve the flexibility and maintainability of your code by creating relationships
   between objects and classes that are easy to understand and modify. 
 
-> 
+> To optimize the performance of your code by reducing memory usage and improving access to objects. 
 
+> When you want to add new functionality to an object dynamically without changing its structure
+
+> To provide a simplified interface to a complex subsystem. 
+
+> If you want to control access to an object by providing a surrogate or placeholder for it. 
+
+> If you want to separate an abstraction from its implementation so that the two can vary independently. 
+
+--- Pros and Cons of Structural Design Patterns --- 
+
+Pros: 
+
+Improves code organization
+Enhances flexibility and maintainability
+Facilitates code reuse 
+Reduces memory usage
+Provides clear structure for complex systems
+
+Cons: 
+
+Can introduce complexity 
+May lead to over-engineering 
+Can impact performance 
+May require additional learning 
+Can make debugging more difficult 
+
+--- Conclusion --- 
+
+In this chapter, we have discussed the Structural Design Patterns in C++. We have seen the different types of structural design patterns and how they can be used to create flexible and 
+maintable code. We have also seen an example of how multiple structual design patterns can be used together to create a complex system. Structural design patterns are an important tool
+for any software developer, and understanding them can help you create better software. 
 */
+
+#include <iostream> 
+#include <string> 
+#include <vector>
+#include <memory>
+using namespace std; 
+
+class MediaFile { 
+  public: 
+    virtual string getType() = 0; 
+    virtual void play() = 0; 
+    virtual ~MediaFile() = default;
+};
+
+class MP3File : public MediaFile { 
+  public: 
+    string getType() { 
+      return "MP3";
+    }
+    void play() { 
+      cout << "Playing MP3 file" << endl; 
+    }
+};
+
+class MP4File : public MediaFile { 
+  public: 
+    string getType() { 
+      return "MP4";
+    }
+    void play(){ 
+      cout << "Playing MP4 file" << endl;
+    }
+}; 
+
+class MediaAdapter : public MediaFile { 
+  private: 
+    shared_ptr<MediaFile> mediaFile;
+  public: 
+    MediaAdapter(shared_ptr<MediaFile> file){
+      mediaFile = file;
+    }
+    string getType(){
+      return mediaFile->getType();
+    }
+    void play(){
+      mediaFile->play();
+    }
+};
+
+class Playlist : public MediaFile{
+  private:
+    vector<shared_ptr<MediaFile>> mediaFiles;
+  public: 
+    void add(shared_ptr<MediaFile> file){
+      mediaFiles.push_back(file);
+    }
+    string getType(){
+      return "Playlist";
+    }
+    void play(){
+      cout << "Playing playlist:" << endl;
+      for (auto& file : mediaFiles){
+        file->play();
+      }
+    }
+};
+
