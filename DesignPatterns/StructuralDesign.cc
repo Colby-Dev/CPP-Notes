@@ -140,3 +140,194 @@ class Playlist : public MediaFile{
     }
 };
 
+// Decorator
+class MediaDec : public MediaFile { 
+  protected: 
+    shared_ptr<MediaFile> mediaFile;
+  public: 
+    MediaDec(shared_ptr<MediaFile> file) {
+      mediaFile = file; 
+    }
+    string getType(){
+      return mediaFile->getType();
+    }
+    void play(){
+      mediaFile->play();
+    }
+};
+
+class VisualEffectDec : public MediaDec { 
+  public: 
+    VisualEffectDec(shared_ptr<MediaFile> file) : MediaDec(file) {}
+    void play(){
+      mediaFile->play();
+      cout << "Visual Effect for Audio" << endl;
+    }
+};
+
+class AudioEnhancementDec : public MediaDec{
+  public: 
+    AudioEnhancementDec(shared_ptr<MediaFile> file) : MediaDec(file) {}
+    void play(){
+      mediaFile->play();
+      cout << "Enhancing Audio" << endl;
+    }
+};
+
+// Facade Pattern
+class MediaPlayer{
+  private: 
+    shared_ptr<MediaFile> mediaFile;
+  public: 
+    MediaPlayer(shared_ptr<MediaFile> file){
+      mediaFile = file;
+    }
+    void play(){
+      mediaFile->play();
+    }
+};
+
+// Proxy Pattern
+class MediaProxy : public MediaFile { 
+  private: 
+    shared_ptr<MediaFile> mediaFile;
+    bool authorized;
+  public:
+    MediaProxy(shared_ptr<MediaFile> file, bool auth){
+      mediaFile = file;
+      authorized = auth;
+    }
+    string getType(){
+      return mediaFile->getType();
+    }
+    void play(){ 
+      if (authorized){
+        mediaFile->play();
+      }
+      else { 
+        cout << "Access denied" << endl;
+      }
+    }
+};
+
+// Bridge Pattern 
+class MediaImplmentation { 
+  public: 
+    virtual void play() = 0;
+    virtual ~MediaImplmentation() = default;
+};
+
+class VLCImplementation : public MediaImplmentation { 
+  public:
+    void play(){
+      cout << "Playing using VLC implementation" << endl;
+    }
+};
+
+class WindowsMediaImplementation : public MediaImplmentation { 
+  public: 
+    void play(){ 
+      cout << "Playing using Windows Media implementation" << endl;
+    }
+};
+
+class MediaAbstraction { 
+  protected: 
+    shared_ptr<MediaImplmentation> implementation; 
+  public: 
+    MediaAbstraction(shared_ptr<MediaImplmentation> impl){
+      implementation = impl;
+    }
+    virtual void play() = 0;
+    virtual ~MediaAbstraction() = default;
+};
+
+class AdvancedMediaPLayer : public MediaAbstraction { 
+  public:
+    AdvancedMediaPLayer(shared_ptr<MediaImplmentation> impl) : 
+  MediaAbstraction(impl){}
+    void play() { 
+      implementation->play();
+    }
+};
+
+// Flyweight Pattern
+class MediaMetadata{
+  private: 
+    string title;
+    string artist;
+    string album;
+
+  public: 
+    MediaMetadata(string t, string ar, string al) : title(t), artist(ar), album(al) {}
+    string getTitle() {string title;}
+    string getArtist() {string artist;}
+    string getAlbum() {string album;}
+    void display() { 
+        cout << "Title: " << title << ", Artist: " << artist << ", Album: " << album << endl;
+    }
+};
+
+class MediaMetadataFactory { 
+  private: 
+    vector<shared_ptr<MediaMetadata>> metadataPool;
+  public: 
+    shared_ptr<MediaMetadata> getMetadata(string title, string artist, string album) { 
+      for (auto& meta : metadataPool){
+        if (meta->getTitle() == title && 
+            meta->getArtist() == artist &&
+            meta->getAlbum() == album) { 
+              return meta;
+            }
+      }
+    shared_ptr<MediaMetadata> newMeta = make_shared<MediaMetadata> (title, artist, album);
+    metadataPool.push_back(newMeta);
+    return newMeta;
+    }
+  };
+int main() { 
+  // Create media files
+  auto mp3 = make_shared<MP3File>();
+  auto mp4 = make_shared<MP4File>();
+  auto adaptedMp3 = make_shared<MediaAdapter>(mp3);
+  auto adaptedMp4 = make_shared<MediaAdapter>(mp4);
+
+  // Create playlist
+  auto playlist = make_shared<Playlist>();
+  playlist->add(adaptedMp3);
+  playlist->add(adaptedMp4);
+  playlist->add(make_shared<VisualEffectDec>(adaptedMp4));
+  playlist->add(make_shared<AudioEnhancementDec>(adaptedMp4));
+
+  // Create media player facade
+  auto player = make_shared<MediaPlayer>(playlist);
+  player->play();
+
+  // Create media proxy
+  auto proxy1 = make_shared<MediaProxy>(adaptedMp4, false);
+  proxy1->play();
+  auto proxy2 = make_shared<MediaProxy>(adaptedMp4, true);
+  proxy2->play();
+
+  // Create advanced media player with bridge pattern
+  auto vlcImpl = make_shared<VLCImplementation>();
+  shared_ptr<MediaAbstraction> advancedPlayer = 
+  make_shared<AdvancedMediaPLayer>(vlcImpl);
+  advancedPlayer->play();
+
+  auto wmImpl = make_shared<WindowsMediaImplementation>();
+  advancedPlayer = make_shared<AdvancedMediaPLayer>(wmImpl);
+  advancedPlayer->play();
+
+  // Create media metadata using flyweight pattern
+  auto metadataFactory = make_shared<MediaMetadataFactory>();
+  auto meta1 = metadataFactory->getMetadata("Song1", "Artist1", "Album1");
+  auto meta2 = metadataFactory->getMetadata("Song2", "Artist1", "Album1");
+  auto meta3 = metadataFactory->getMetadata("Song2", "Artist1", "Album2");
+
+  meta1->display();
+  meta2->display();
+  meta3->display();
+
+  return 0;
+};
