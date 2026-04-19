@@ -73,6 +73,9 @@ class DVDPlayer {
         void Off(){
             cout << "DVD Player is Off" << endl;
         }
+        void play(){
+            cout << "Playing movie " << endl;
+        }
 };
 
 // Facade
@@ -82,5 +85,35 @@ class HomeTheaterFacade{
         SoundSystem* soundSystem;
         DVDPlayer* dvdPlayer;
     public:
+        HomeTheaterFacade(TV* t, SoundSystem* s, DVDPlayer* d) : tv(t), soundSystem(s), dvdPlayer(d) {} 
+        void watchMovie(string movie){
+            tv->On();
+            soundSystem->On();
+            dvdPlayer->On();
+            dvdPlayer->play(movie);
+        
+        }
+        void endMovie() { 
+            cout << "Shutting down the home theater..." << endl;
+            dvdPlayer->Off();
+            soundSystem->Off();
+            TV->Off();
+        }
+        
+};
 
+int main(){
+    TV* tv = new TV();
+    SoundSystem* soundSystem = new SoundSystem();
+    DVDPlayer* dvdPlayer = new DVDPlayer();
+    HomeTheaterFacade* homeTheater = new HomeTheaterFacade(tv, soundSystem, dvdPlayer);
+
+    homeTheater->watchMovie("Wolf of Wall Street");
+    homeTheater->endMovie();
+
+    delete homeTheater;
+    delete tv;
+    delete soundSystem;
+    delete dvdPlayer;
+    return 0;
 };
