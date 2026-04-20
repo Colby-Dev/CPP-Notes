@@ -117,5 +117,4 @@ int main(){
     weatherData.deatch(&display2);
 
     return 0;
-
 }
