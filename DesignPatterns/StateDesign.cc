@@ -67,7 +67,28 @@ class DispensingState : public stateInterface {
          VendingMachine* vendingMachine;
     public: 
         DispensingState(VendingMachine* vm) : vendingMachine(vm) {}
-        void dispenseItem() override{ 
-            cout << "Dispensing Item" << endl;
+        void insertMoney() override{ 
+            cout << "Dispensing Item. Please wait." << endl;
         }
+        void selectItem() ovrride { 
+            cout << "Dispensing Item. Please wait." << endl;
+        }
+        void dispenseItem() override {};
 };
+
+class VendingMachine { 
+    private: 
+        stateInterface* currentState;
+        IdleState idleState;
+        hasMoneyState HasMoneyState;
+        DispensingState despensingState;
+        
+    public: 
+        VendingMachine() : 
+            IdleState(this),
+            hasMoneyState(this),
+            DispensingState(this)
+        {
+
+        }
+}
