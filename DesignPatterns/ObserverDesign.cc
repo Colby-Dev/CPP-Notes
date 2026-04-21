@@ -76,7 +76,7 @@ class Subject {
 // Concrete Subject class
 class WeatherData : public Subject {
     private: 
-        vector<Observers*> observers;
+        vector<Observer*> observers;
         float tempature;
         float humidity;
         float pressure;
@@ -86,7 +86,7 @@ class WeatherData : public Subject {
             observers.push_back(observer);
         }
         void detach(Observer* observer) override{
-            observers.erase(remove(observers.begin(), observers.end(), observer), observer.end());
+            observers.erase(remove(observers.begin(), observers.end(), observer), observers.end());
         }
         void notify() override {
             for (Observer* observer : observers){
@@ -114,7 +114,7 @@ int main(){
     weatherData.setMeasurements(151.1, 28.1, 32.2);
 
     weatherData.detach(&display1);
-    weatherData.deatch(&display2);
+    weatherData.detach(&display2);
 
     return 0;
 }
