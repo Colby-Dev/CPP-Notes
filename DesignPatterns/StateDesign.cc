@@ -22,6 +22,14 @@ The state design pattern is made up of a few important parts that work together 
 
 4) State Transition - This is how the contect changes from one state to another. When something happens (like inserting money), the context will switch to a new state so it can behave differently.
 
+--- Conclusion --- 
+
+In this chapter, we explored the State Design Pattern, its key components, and how it helps in managing state specific behavior in a clean and organized way. We also saw a practical C++ implementation of a vending machine 
+using tis pattern, along with its advantages, disadvantages, and real world applications.
+
+
+
+
 */
 
 #include <iostream>
@@ -46,6 +54,7 @@ class IdleState : public stateInterface {
         void selectItem() override {
             cout << "Please insert money first." << endl;
         }
+        void dispenseItem() override {};
 };
 
 class hasMoneyState : public stateInterface { 
@@ -70,7 +79,7 @@ class DispensingState : public stateInterface {
         void insertMoney() override{ 
             cout << "Dispensing Item. Please wait." << endl;
         }
-        void selectItem() ovrride { 
+        void selectItem() override { 
             cout << "Dispensing Item. Please wait." << endl;
         }
         void dispenseItem() override {};
@@ -81,14 +90,70 @@ class VendingMachine {
         stateInterface* currentState;
         IdleState idleState;
         hasMoneyState HasMoneyState;
-        DispensingState despensingState;
+        DispensingState dispensingstate;
         
     public: 
-        VendingMachine() : 
-            IdleState(this),
-            hasMoneyState(this),
-            DispensingState(this)
+        VendingMachine()  
+            : idleState(this),
+              HasMoneyState(this),
+              dispensingstate(this)
         {
-
+            currentState = &idleState;
         }
+
+        void setState(stateInterface* state){
+            currentState = state;
+        }
+
+        void insertMoney(){
+            currentState->insertMoney();
+        }
+
+        void selectProduct(){
+            currentState->selectItem();
+        }
+
+        void dispenseProduct(){
+            currentState->dispenseItem();
+        }
+
+        stateInterface* getIdleState() {
+            return &idleState;
+        }
+
+        stateInterface* gethasMoneyState() {
+            return &HasMoneyState;
+        }
+
+        stateInterface* getDispenseState() {
+            return &dispensingstate;
+        }
+
+};
+
+// Implementations
+void IdleState::insertMoney(){
+    cout << "Money inserted." << endl;
+    vendingMachine->setState(vendingMachine->getDispenseState());
+}
+
+void hasMoneyState::selectItem(){
+    cout << "Product Selected." << endl;
+    vendingMachine->setState(vendingMachine->getDispenseState());
+}
+
+void DispensingState::dispenseItem(){
+    cout << "Dispensing Product." << endl;
+    vendingMachine->setState(vendingMachine->getIdleState());
+}
+
+
+int main(){
+    VendingMachine vm;
+
+    vm.insertMoney();
+    vm.selectProduct();
+    vm.dispenseProduct();
+
+    return 0;
 }
