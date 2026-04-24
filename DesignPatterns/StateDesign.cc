@@ -50,11 +50,11 @@ class IdleState : public stateInterface {
         VendingMachine* vendingMachine;
     public: 
         IdleState(VendingMachine* vm) : vendingMachine(vm) {}
-        void insertMoney() override {};
-        void selectItem() override {
+        void insertMoney(){};
+        void selectItem(){
             cout << "Please insert money first." << endl;
         }
-        void dispenseItem() override {};
+        void dispenseItem(){};
 };
 
 class hasMoneyState : public stateInterface { 
@@ -132,7 +132,7 @@ class VendingMachine {
 };
 
 // Implementations
-void IdleState::insertMoney(){
+void IdleState::insertMoney() {
     cout << "Money inserted." << endl;
     vendingMachine->setState(vendingMachine->getDispenseState());
 }

@@ -21,6 +21,73 @@ of rewriting your existing code.
 In this section, we will see how to implement the Strategy Design Pattern in C++ with a simple and easy-to-understand example. We'll create a Context class that can use different stratefies to perform a calculation.
 Each strategy will be written in its own class, making the program flexible enough to switch between different strategies whenever needed it without changing the rest of the code. 
 
-1) Define the strategy Interface - 
+1) Define the strategy Interface - Start by creating an abstract class that defines a common method for the algorithm. This interface acts like a blueprint that every strategy class will follow this same structure. 
+
+2) Implement Concrete Strategies - Create separate classes that inherit from the strategy interface and provide their own version of the algorithm. Each class will represent a different way of performing the same task. 
+
+3) Use the Strategy Pattern - In the main function, create objects for the Context and different Stratefy classes. Show how the Context can switch between strategies dynamically for example, changing from addition to
+                              multiplication without rewriting any logic in the Context itself. 
+
+--- Conclusion ---
+
+In this chapter, we explored the Strategy Design Pattern, its key components, and how it helps in making your code more flexible and easier to manage. We also saw some real-world examples where this pattern can be
+effectively applied. 
 
 */
+
+#include <iostream>
+using namespace std; 
+
+// Strategy Interface
+
+class Strategy { 
+    public: 
+        virtual int doOperation(int a, int b) = 0;
+        virtual ~Strategy() {}
+};
+
+// Concrete Strategy for Addition
+
+class Addition : public Strategy { 
+    public: 
+        int doOperation(int a, int b) override { 
+            return a + b;
+        }
+};
+
+// Concrete Strategy for Subtraction
+
+class Subtraction : public Strategy { 
+    public: 
+        int doOperation(int a, int b) override { 
+            return a - b;
+        }
+};
+
+// Context Class 
+
+class Context { 
+    private: 
+        Strategy* strategy;
+    public: 
+        Context(Strategy* strategy) : strategy(strategy){}
+
+    void setStrategy(Strategy* strategy){
+        this->strategy = strategy;
+    }
+
+    int executeStrategy(int a, int b){
+        return strategy->doOperation(a, b);
+    }
+};
+
+int main() {
+    Context* context = new Context(new Addition());
+    cout << "10 + 5 = " << context->executeStrategy(10, 5) << endl;
+
+    context->setStrategy(new Subtraction());
+    cout << "10 - 5 = " << context->executeStrategy(10, 5) << endl;
+
+    delete context;
+    return 0;
+}
