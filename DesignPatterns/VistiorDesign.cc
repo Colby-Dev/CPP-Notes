@@ -35,6 +35,12 @@ visitor classes.
 
 --- Conclusion ---
 
+In this chapter, we explored the visitor design pattern, a powerful behavioral design pattern that allows for the separation of algorithms from the objects on which they operate.
+We discussed the key components of the pattern, including the visitor interface, conrete visitors, element interface, and concrete elements. We also implemented the visitor 
+pattern in C++ using a shape example, demonstrating how to calculate area and perimeter using separate visitor classes. Finally, we examined the pros and cons of the visitor pattern
+and highlighted its real-world applications in various domains. By using the visitor design pattern, developers can enhance code maintainability, promote seperation of concerns, and
+easily add new operations to existing object structures. 
+
 */
 
 #include <iostream>
@@ -140,7 +146,13 @@ int main() {
     PerimeterCalculator perm;
 
     for (Shape* shape : shapes) { 
-        
+        shape->accept(&AreaCalculator);
+        shape->accept(&PerimeterCalculator);
     }
 
+    for (Shape* shape : shapes) { 
+        delete shape;
+    }
+
+    return 0;
 }
