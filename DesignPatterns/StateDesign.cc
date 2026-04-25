@@ -135,7 +135,7 @@ class VendingMachine {
 void IdleState::insertMoney() {
     cout << "Money inserted." << endl;
     vendingMachine->setState(vendingMachine->getDispenseState());
-}
+ }
 
 void hasMoneyState::selectItem(){
     cout << "Product Selected." << endl;
