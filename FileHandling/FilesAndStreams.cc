@@ -68,6 +68,28 @@ the screen. The only difference is that you use an ofstream or fstream object in
 You read information from a file into your program using the stream extraction operator (>>) just as you use that operator to input information from the keyboard. The only difference
 is that you use an ifstream or fstream instead of the cin object. 
 
+--- File Position Pointers ---
+
+Both istream and ostream provide member functions for repositioning the file-position pointer. These member functions are seekg for istream and seekp for ostream. 
+
+The argument to seekg and seekp normally is a long integer. A second argument can be specified to indicate the seek direction. The seek direction can be ios::beg (the default)
+for positioning relative to the beginning of a stream, ios::cur for positioning relative to the current position in a stream or ios::end for positioning relative to the end of
+a stream. 
+
+The file-position pointer is an integer value that specifies the location in the file as a number of bytes from the file's starting location. Some examples of postioning the 
+"get" file-position are: 
+
+	// position to the nth byte of fileObject (assumes ios::beg)
+	fileObject.seekg(n);
+
+	// position n bytes forward in fileObject
+	fileObject.seekg(n, ios::cur);
+
+	// position n bytes back from end of fileObject
+	fileObject.seekg(n, ios::end);
+
+	// position at end of fileObject
+	fileObject.seekg(0, ios::end);
 
 */
 
