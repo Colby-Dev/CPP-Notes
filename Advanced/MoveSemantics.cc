@@ -45,10 +45,22 @@ The move assignment operator uses '(=)' and rvalue reference for move semantic. 
 
 (see Example 4)
 
+--- Std::move() Function ---
+
+Used to transfer ownership this avoids copying data and saves memory usage by simply moving the address of the data to a new owner. Move() is a member of the C++ standard.
+
+(see Example 5)
+
+--- Conclusion ---
+
+In this chapter, we discussed about move semantics. Its main purpose is to transfer ownership of resources of rvalues to save memory overhead and increas the efficiency of the code. 
+
 */
 
 #include <iostream>
 #include <cstring>
+#include <string>
+#include <utility>
 using namespace std;
 
 // ----- Example 1 -----
@@ -206,6 +218,21 @@ int Ex4(){
 	s1.print();
 	s2.print(); //s2 is now empy
 	
+	return 0;
+}
+
+// ----- Example 5 -----
+
+int main() { 
+	cout << "Before move() function: ";
+	string str1 = "Hello";
+	cout << "\nstring 1: " << str1 << endl;
+
+	cout << "\nAfter move() function: ";
+	string str2 = std::move(str1);
+	cout << "\nstr2: " << str2 << endl;
+	cout << "\nstr1: " << str1 << endl;
+
 	return 0;
 }
 
