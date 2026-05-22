@@ -42,7 +42,8 @@ Entities with the same name defined in an outer scope are hidden.
 
 --- Discontiguous Namespace --- 
 
-A namespace can be defined in several parts and so a namespace is made up of the sum of its se
+A namespace can be defined in several parts and so a namespace is made up of the sum of its separately defined parts. THe separate parts of a namespace can be spread over multiple files. 
+
 
 
 */
