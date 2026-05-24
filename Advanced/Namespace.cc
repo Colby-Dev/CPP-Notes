@@ -42,10 +42,41 @@ Entities with the same name defined in an outer scope are hidden.
 
 --- Discontiguous Namespace --- 
 
-A namespace can be defined in several parts and so a namespace is made up of the sum of its separately defined parts. THe separate parts of a namespace can be spread over multiple files. 
+A namespace can be defined in several parts and so a namespace is made up of the sum of its separately defined parts. THe separate parts of a namespace can be spread over multiple files.
 
+So, if one part of the namespace requires a name defined in another file, that name still must be declared. Writing a following nameapce definition either defines a new namespace or adds new elements to an an existing one: 
 
+	namespace namespace_name {
 
+		// code declarations
+	}
+
+--- Nested Namespace --- 
+
+Namespaces can be nested where you can define one namespace inside another name space as follows: 
+
+	namespace namespace_name1 {
+		
+		// code declarations
+
+		namespace namespace_name2 {
+
+		// code declarations
+		
+		}
+	}
+
+You can access the members of nested namespace by using resolution operators as follows: 
+
+	// to access members of namespace_name2
+	using namespace namespace_name1::namespace_name2;
+
+	// to access members of namesapce:name1
+	using namespace namespace_name1;
+
+In the above statements if you are using namespace_name1, then it will make elements of namespace_name2 available in the scope as follows: 
+
+	(see Example 4)
 */
 
 // Example 1
@@ -108,11 +139,32 @@ int EX3(){
 	cout << "std::endl is used with std!" << std::endl;
 }
 
+// Example 4
+namespace first_space {
+	void func() { 
+		cout << "Inside first_space" << endl;
+	}
+
+	namespace second_space {
+		void func() { 
+			cout << "Inside second_space" << endl;
+		}
+	}
+}
+
+using namespace first_space::second_space;
+
+int EX4(){
+
+	func();
+}
+
 int main(){
 
 	EX1();
 	EX2();
 	EX3();
+	EX4();
 
 	return 0;
 }
