@@ -50,7 +50,46 @@ This causes the cerr statement to be compiled in the program if the symbolic con
 
 (see Example 3)
 
+--- The # and ## Operators ---
 
+The # and ## preprocessor operators are available in C++ and ANSI/ISO C. The # operator causes a replacement-text token to be converted to a string surrounded by quotes. Consider the following macro definition: 
+
+	#include <iostream> 
+	using namespace std; 
+
+	#define MKSTR(x) #x
+
+	int main () {
+
+	cout << MKSTR(Hello C++) << endl;
+
+	return 0;
+
+	} 
+
+If we complied this code we would produce the result Hello C++. This worked since the C++ preprocessor turns this line: 
+
+	cout << MKSTR(Hello C++) << endl;
+
+The compiler then reads this as: 
+
+	cout << "Hello C++" << endl;
+
+The ## operator is used to concatenate two tokens. Here is an example: 
+
+	#define CONCAT( x , y) x ## y 
+
+When CONCAT appears in the program its args are concatenated and used to replace the macro. For example, CONCAT(Hello , C++) is replaced by "Hello C++" in the program as follows: 
+
+(see Example 4)
+
+When compiled this will produce the a string 100.
+
+--- Predefined C++ Macros --- 
+
+C++ provides a number of predefined macros as show in the example below: 
+
+(see Example 5)
 
 
 */
@@ -105,6 +144,24 @@ int EX3() {
 
 }
 
+// Example 4
+#define concat(a, b) a ## b
+
+int EX4() { 
+
+	int xy = 100; 
+	cout << concat(x, y);
+}
+
+// Example 5
+int EX5() { 
+
+	cout << "Value of __LINE__ : " << __LINE__ << endl;
+	cout << "Value of __FILE__ : " << __FILE__ << endl;
+	cout << "Value of __DATE__ : " << __DATE__ << endl;
+	cout << "Value of __TIME__ : " << __TIME__ << endl;
+}
+
 
 
 int main() { 
@@ -112,6 +169,8 @@ int main() {
 	EX1();
 	EX2();
 	EX3();
+	EX4();
+	EX5();
 	return 0;
 }
 
