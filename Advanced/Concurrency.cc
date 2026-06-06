@@ -51,7 +51,19 @@ The following are some of the key methods of thread synch in C++
 
   	Wait (P or acquire): Decreases the semaphore value. 
 
+	Signal (V or release): Increases the semaphore value. 
 
+--- Asynchronous Execution in C++ --- 
+
+In C++, std::future and std::promise are mechanisms which are used for asunchronous programming that help manage data or result in communication between threads, allowing one thread to provide a result (via std::promise) and another to retrieve it (via std::future). These are part of the C++ 11 standard and are found in the <future> header. 
+
+--- Key Components for Asynchronous Programming --- 
+
+ > std::future, It represents a future result of an asynchronous operation. A thread can retrieve the result from a future once it's available, and if the result isn't ready, the std::future::get() - Function will block until the value is computed. 
+
+ > std::promise, It is used to set a value or an exception that can later be retrieved via a std::future.
+
+ > std::async, It is used to launch a task asynchronously. It returns a std::future that can be used to obtain the result of the task once it's completed. 
   
 
 */
