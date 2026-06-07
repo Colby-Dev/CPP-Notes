@@ -51,6 +51,22 @@ The main purpose of the nullptr is to assign a null value to any pointer. Here a
 
 				     (see Example 6)
 
+	> Safe Object Initialization for Null Value, The nullptr can be used for setting a pointer to null 
+						     without causing any error or any garbage value. 
+						     Here is an example to assign a null value to represent 
+						     an empty linked list. 
+
+						     (see Example 7)
+
+	> Function Overloading Resolution, The nullptr is also used to resolve the ambiguity in function 
+					   overloading.
+
+					   (see Example 8)
+
+--- Conclusion --- 
+
+In this chapter, we have understood that the nullptr in C++ is used when we need a null pointer. Before C++11, NULL was used, but it had various problems which is addressed by the nullptr. We have discussed various use cases of nullptr with examples. 
+
 
 */
 
@@ -154,5 +170,49 @@ int EX5(){
 	if (ptr == nullptr)
 		cout << "Pointer reset successful." << endl;
 }
+
+
+// Example 6
+
+int EX6() { 
+
+	int *ptr = nullptr; 
+	if (ptr != nullptr)
+		cout << "Pointer value: " << *ptr << endl;
+	else
+		cout << "It is a null pointer." << endl;
+
+}
+
+// Example 7
+
+struct Node { 
+	int data; 
+	Node *next; 
+};
+
+int EX7(){ 
+
+	Node *head = nullptr; // Empty linked list
+
+	if (head == nullptr)
+		cout << "Linked list is empty." << endl;
+}
+
+
+// Example 8
+
+void show(int n){
+	cout << "Integer called." << endl;
+}
+
+void show(int *p){
+	cout << "Pointer called." << endl;
+}
+
+int EX8() { 
+	show(nullptr); // Calls pointer	
+}
+
 
 
